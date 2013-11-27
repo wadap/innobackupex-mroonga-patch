@@ -1,0 +1,18 @@
+*** innobackupex.org    2013-11-27 12:12:13.000000000 +0900
+--- innobackupex        2013-11-27 16:13:43.000000000 +0900
+***************
+*** 2699,2704 ****
+--- 2699,2711 ----
+              }
+          }
+      }
++
++     # backup .mrn files
++     rewinddir(DIR);
++     my @mrn_file = grep(/\.mrn(?:\..+)?/, readdir(DIR));
++     foreach $file (@mrn_file) {
++         backup_file("$source_dir", "$file", "$backup_dir/$file")
++     }
+      closedir(DIR);
+
+      if ($option_rsync) {
